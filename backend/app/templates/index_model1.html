@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.$    <title>WebSocket 示例</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2$    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-seri$            background-color: #eef2f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 24px;
+        }
+              input[type="text"] {
+            width: 80%;
+            padding: 10px 12px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+              button:nth-of-type(2) {
+            background-color: #f44336;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        #response {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #555;
+            word-break: break-word;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        #response.show {
+            opacity: 1;
+        }
+       </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WebSocket 示例</h1>
+        <input id="message_input" type="text" placeholder="输入消息">
+        <br>
+        <button onclick="sendMessage()">发送消息</button>
+        <button onclick="disconnect()">结束连接</button>
+        <p id="response"></p>
+    </div>
+
+    <script>
+        var socket = io();
+
+        socket.on('response', function(data) {
+            const responseEl = document.getElementById('response');
+            responseEl.classList.remove('show'); // 先移除旧动画状态
+            responseEl.innerText = data.data;
+          // 强制重新渲染（触发动画）
+            void responseEl.offsetWidth;
+            responseEl.classList.add('show'); // 添加新动画状态
+        });
+
+        function sendMessage() {
+            var message = document.getElementById('message_input').valu$            socket.emit('message_1', message);
+            document.getElementById('message_input').value = ''; // 发>$        }
+
+        function disconnect() {
+            socket.disconnect();
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>
