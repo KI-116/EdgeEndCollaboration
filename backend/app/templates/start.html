@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.$    <title>启动服务</title>
+    <style>
+        /* 设置整个页面的基本样式 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-seri$            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* 容器样式，用于美化表单整体布局 */
+        .container {
+            background-color: #fff;
+            padding: 40px 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* 标题样式 */
+        h1 {
+            margin-bottom: 24px;
+            color: #333;
+        }
+              /* 标签样式 */
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* 下拉框样式 */
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+              /* 按钮样式 */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* 按钮悬停效果 */
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+      <body>
+    <!-- 中心容器 -->
+    <div class="container">
+        <h1>启动服务</h1>
+
+        <!-- 表单区域，提交到 Flask 后端的 start_service 路由 -->
+        <form action="{{ url_for('start_service') }}" method="post">
+            <!-- 模型选择标签 -->
+            <label for="model_type">选择模型类型：</label>
+
+            <!-- 下拉选择框 -->
+            <select name="model_type" id="model_type">
+                <option value="model1">Model 1</option>
+                <option value="model2">Model 2</option>
+            </select>
+
+            <!-- 提交按钮 -->
+            <button type="submit">启动服务</button>
+        </form>
+    </div>
+</body>
+</html>
