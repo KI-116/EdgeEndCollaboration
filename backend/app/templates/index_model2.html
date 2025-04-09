@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.$    <title>WebSocket 示例</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2$    <style>
+        /* 页面基础布局 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-seri$            background-color: #eef2f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* 容器样式 */
+        .container {
+            background-color: #fff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 24px;
+        }
+              input[type="text"] {
+            width: 80%;
+            padding: 10px 12px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+              button:nth-of-type(2) {
+            background-color: #f44336;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        /* 响应消息样式 + 动画 */
+        #response {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #555;
+            word-break: break-word;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+              #response.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WebSocket 示例</h1>
+        <input id="message_input" type="text" placeholder="输入消息">
+        <br>
+        <button onclick="sendMessage()">发送消息</button>
+        <button onclick="disconnect()">结束连接</button>
+        <p id="response"></p>
+    </div>
+
+    <script>
+        // 建立 WebSocket 连接
+        var socket = io();
+
+        // 监听服务器发送的 response 事件
+        socket.on('response', function(data) {
+            const responseEl = document.getElementById('response');
+            responseEl.classList.remove('show');       // 移除旧动画类
+            responseEl.innerText = data.data;          // 更新内容
+            void responseEl.offsetWidth;               // 强制重绘以重>$            responseEl.classList.add('show');          // 添加动画类
+        });
+
+        // 向服务器发送消息（使用 message_2 事件）
+        function sendMessage() {
+            var message = document.getElementById('message_input').valu$            socket.emit('message_2', message);         // 发出事件
+            document.getElementById('message_input').value = ''; // 清>$        }
+
+        // 断开连接并返回主页
+        function disconnect() {
+            socket.disconnect();
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>
